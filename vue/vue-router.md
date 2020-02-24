@@ -96,3 +96,6 @@ const router = new Router({
 
 直接使用this.$router.push("/home")方法，新版本中该方法为异步会返回Promise，相同路径跳转会报错，需要添加`.catch((error)=>{console.log(error)})`处理错误
 
+replace方法跳转到的页面不会向 navigation stack 添加记录，无法返回到该页面
+
+go方法参数为数字，一般用来返回上一页go(-1)
