@@ -1,0 +1,62 @@
+# 递归与记忆化
+
+## 斐波那契数列递归
+
+```javascript
+function fib1(n) {
+  if (n === 0 || n === 1) {
+    return 1
+  } else {
+    return fib1(n - 1) + fib1(n - 2)
+  }
+}
+
+function fib2(n) {
+  let arr = []
+  for (let i = 0; i <= n; i++) {
+    if (i === 0 || i === 1) {
+      arr[i] = 1
+    } else {
+      arr[i] = arr[i - 1] + arr[i - 2]
+    }
+  }
+  return arr[n]
+}
+
+console.time("fib1")
+console.log(fib1(40))
+console.timeEnd("fib1")
+
+console.time("fib2")
+console.log(fib2(40))
+console.timeEnd("fib2")
+```
+
+fib1每次展开会重复递归，函数调用很多次，可能会导致爆栈并且耗时间，采用fib2尾递归的形式可以有效节约时间，但是每次依旧会重复计算，可以使用记忆化将之前的结果缓存下来，减少以后调用时的计算
+
+```javascript
+const memo = (fn) => {  
+    const memoed = function(...args) {
+        const key = JSON.stringify(args)
+        if (!(key in memoed.cache)) {
+            memoed.cache[key] = fn.apply(this, arguments)
+        }
+        return memoed.cache[key]
+    }
+    memoed.cache = {}
+    return memoed
+}
+
+const memoFib = memo(fib2)
+
+console.time("fib")
+console.log(memoFib(50))
+console.timeEnd("fib")
+
+console.time("fib")
+console.log(memoFib(50))
+console.timeEnd("fib")
+```
+
+可以从日志看出第二次明显比第一次运算时间更短，可以理解成空间换时间
+
