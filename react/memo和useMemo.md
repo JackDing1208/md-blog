@@ -2,7 +2,7 @@
 
 一般希望子组件不再重新渲染可以用到React.memo包装，其原理类似PureComponent，当父组件重新渲染时，只在props改变时才会重新渲染
 
-```javascript
+```jsx
 export default function App() {
   const  [n,setN]=  useState(0) 
   return (

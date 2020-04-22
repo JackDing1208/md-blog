@@ -4,7 +4,7 @@
 
 基本用法如下，注意要使用current来访问
 
-```javascript
+```jsx
 export default function App() {
   const inputRef = useRef();
   useEffect(()=>{
@@ -23,7 +23,7 @@ export default function App() {
 
 但是函数组件不接受ref属性，一般需要改用forwardRef
 
-```javascript
+```jsx
 export default function App() {
   const inputRef = useRef(null);
   const fnRef = useRef(null);
