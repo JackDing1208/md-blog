@@ -69,3 +69,29 @@ xxx.then((value) => {
 
 ```
 
+有时会发现Promise.all和Promise.race都不好用，可以考虑使用Promise.allsettled，但兼容性不好，可以自动手动封装一下
+
+```js
+const myAll  = (arr,fn)=>{
+  let n = 0
+  let result  = []
+  arr.forEach((p)=>{
+    p.then((value)=>{
+      n+=1
+      result.push(value)
+      console.log(result)
+      if(n===arr.length){
+        fn(result)
+      }
+    }).catch((value)=>{
+      n+=1
+      result.push(value)
+      console.log(result)
+      if(n===arr.length){
+        fn(result)
+      }
+    })
+  })
+}
+```
+
